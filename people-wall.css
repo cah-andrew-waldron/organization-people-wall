@@ -1,0 +1,29 @@
+.link line {
+    stroke: #696969;
+    stroke-width: 5px;
+}
+
+.node circle {
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.node text {
+    pointer-events: none;
+}
+
+.node.company text {
+    font: bold 10px sans-serif;
+}
+
+.node.team text {
+    font: bold 10px sans-serif;
+}
+
+.node.member {
+    font: 10px sans-serif;
+}
+
+body {
+      background: #000;
+}

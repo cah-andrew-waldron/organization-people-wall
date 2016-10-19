@@ -1,0 +1,60 @@
+{
+    "company": {
+        "name": "Colors Incorporated",
+        "color": "FF00FF"
+    },
+
+    "teams": [
+        {
+            "name": "Red Team",
+            "teamColor": "FF0000",
+            "memberColor": "FFA500",
+            "description": "We're Red Team!"
+        },
+        {
+            "name": "Blue Team",
+            "teamColor": "0000FF",
+            "memberColor": "ADD8E6",
+            "description": "We're Blue Team!"
+        },
+        {
+            "name": "Other Team",
+            "teamColor": "FF2300",
+            "memberColor": "ABCDEF",
+            "description": "stuff"
+        }
+    ],
+
+    "members": [
+        {
+            "name": "Joe",
+            "teams": [ "Red Team", "Blue Team" ],
+            "description": "My name is Joe"
+        },
+        {
+            "name": "Bob",
+            "teams": [ "Red Team" ],
+            "description": "My name is Joe"
+        },
+        {
+            "name": "Jim",
+            "teams": [ "Red Team" ],
+            "description": "My name is Joe"
+        },
+        {
+            "name": "Tom",
+            "teams": [ "Blue Team" ],
+            "description": "My name is Joe"
+        },
+        {
+            "name": "Bill",
+            "teams": [ "Blue Team" ],
+            "description": "My name is Joe"
+        },
+        {
+            "name": "Person",
+            "teams": [ "Other Team" ],
+            "description": "Hello"
+        }
+    ]
+}
