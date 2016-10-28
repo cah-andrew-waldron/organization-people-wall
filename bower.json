@@ -1,0 +1,18 @@
+{
+  "name": "organization-people-wall",
+  "homepage": "https://github.com/cah-andrewwaldron/organization-people-wall",
+  "authors": [
+    "cah-andrewwaldron <andrew.waldron@cardinalhealth.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

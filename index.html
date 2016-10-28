@@ -1,155 +1,16 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" type="text/css" href="people-wall.css">
+
+    <script defer src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+    <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script defer src="scripts/d3example.js"></script>
+    <script defer src="scripts/app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
-<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script>
-
-var companySize = 100, teamSize = 50, memberSize = 5; // lol memberSize
-
-var width = window.innerWidth, height = window.innerHeight;
-
-var radius = d3.scale.sqrt().range([0, 6]);
-
-var svg = d3.select("body").append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
-var force = d3.layout.force()
-        .size([width, height])
-        .charge(-100)
-        .gravity(0)
-        .friction(0.98)
-        .linkStrength(function(d) { return 1; })
-        .linkDistance(function(d) {
-            var distance;
-            switch(d.source.type) {
-                case "company":
-                    distance = Math.min(height, width) / 4;
-                    break;
-                case "team":
-                    distance = 20;
-                    break;
-            }
-
-            return radius(d.source.size) + radius(d.target.size) + distance;
-        });
-
-function populateNodesAndLinks(data, nodes, links) {
-    var c = data.company;
-    var company = { "name": c.name, "color": c.color, "size": companySize, "type": "company" };
-    nodes.push(company);
-
-    var teamIndexes = {};
-    for(var i = 0; i < data.teams.length; i++) {
-        var t = data.teams[i];
-        var team = { "name": t.name, "color": t.teamColor, "size": teamSize, "type": "team" };
-
-        var link = { "source": 0, "target": nodes.length };
-        links.push(link);
-
-        teamIndexes[team.name] = { "index": nodes.length, "memberColor": t.memberColor };
-        nodes.push(team);
-    }
-
-    for(var i = 0; i < data.members.length; i++) {
-        var m = data.members[i];
-        var member = { "name": m.name, "size": memberSize, "type": "member" };
-
-        var memberNodeIdx = nodes.length;
-        nodes.push(member);
-
-        for(var x = 0; x < m.teams.length; x++) {
-            var teamName = m.teams[x];
-            var teamData = teamIndexes[teamName];
-            var link = { "source": teamData.index, "target": memberNodeIdx };
-            member["color"] = teamData.memberColor;
-            links.push(link);
-        }
-    }
-}
-
-d3.json("teams.json", function(error, data) {
-    if(error) throw error;
-
-    var nodes = [];
-    var links = [];
-
-    populateNodesAndLinks(data, nodes, links);
-
-    force.nodes(nodes).links(links)
-        .on("tick", tick);
-
-    var link = svg.selectAll(".link")
-        .data(links)
-        .enter().append("g")
-            .attr("class", "link");
-
-    link.append("line");
-
-    var node = svg.selectAll(".node")
-        .data(nodes)
-        .enter().append("g")
-            .attr("class", function(d) { return "node " + d.type; })
-            .call(force.drag)
-            .on("click", function(d, i) { 
-                        if (d3.event.defaultPrevented) return;
-                        var t = svg.transition().duration(1000)
-                        t.selectAll("circle").attr("r", function(d, ii) {
-                                if(i == ii)  {
-                                    var originalSize;
-                                    switch(d.type) {
-                                        case "company": originalSize = companySize; break;
-                                        case "team": originalSize = teamSize; break;
-                                        case "member": originalSize = memberSize; break;
-                                    }
-
-                                    if(d.size == originalSize) {
-                                        d.size = Math.min(width, height);
-                                    } else {
-                                        d.size = originalSize;
-                                    }
-                                }
-
-                                return radius(d.size);
-                            })
-                    });
-
-    node.append("circle")
-        .attr("r", function(d) { return radius(d.size); })
-        .style("fill", function(d) { return d.color; });
-
-    node.append("text")
-        .attr("dy", ".35em")
-        .attr("text-anchor", "middle")
-        .text(function(d) { return d.name; });
-
-    force.start();
-
-    function tick(e) {
-        var k = 0.25 * e.alpha;
-        node.attr("transform", function(d) {
-                d.x = Math.max(radius(d.size), Math.min(width - radius(d.size), d.x));
-                d.y = Math.max(radius(d.size), Math.min(height - radius(d.size), d.y));
-
-                if(d.type === "company") {
-                    d.x += (width/2 - d.x) * k;
-                    d.y += (height/2 - d.y) * k;
-                }
-
-                return "translate(" + d.x + "," + d.y + ")";
-            });
-
-        link.selectAll("line")
-            .attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-
-        force.resume();
-    }
-});
-
-</script>
+</body>
