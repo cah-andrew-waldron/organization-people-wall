@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" type="text/css" href="people-wall.css">
-
     <script defer src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
     <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script defer src="scripts/d3example.js"></script>
+    
+    <script defer src="bower_components/angular/angular.min.js"></script>
+    <script defer src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script defer src="bower_components/underscore/underscore-min.js"></script>
+    
     <script defer src="scripts/app.js"></script>
+    <script defer src="scripts/admin/controllers/adminController.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
+    <!--<script defer src="scripts/d3example.js"></script>-->
+    <!--<link rel="stylesheet" type="text/css" href="people-wall.css">-->
 </head>
 
-<body>
+<body ng-app="fusewall">
+    <div ui-view></div>
 </body>

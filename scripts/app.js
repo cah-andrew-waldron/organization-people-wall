@@ -1,31 +1,10 @@
-var config = {
-  apiKey: "AIzaSyAkrp8RZgs0yLIYdhksgd4dNupQeW43Y7s",
-  authDomain: "fusewall-15ced.firebaseapp.com",
-  databaseURL: "https://fusewall-15ced.firebaseio.com",
-  storageBucket: "fusewall-15ced.appspot.com",
-  messagingSenderId: "529721997681"
-};
+'use strict';
 
-$(function() {
-  var app = firebase.initializeApp(config);
+function appRoutingConfig($locationProvider) {
+  $locationProvider.hashPrefix('!');
+}
 
-  insertPerson({
-    personId: '423423feffsddsfd',
-    bubbleTitle: 'Gio Hernandez',
-    bubbleDescription: 'Some of the most awesome stuff you ever saw', 
-    imgS3Url: 's3://path/image.png',
-    squads: ['asdf', 'asdf2']
-  });
+angular.module('fusewall', ['ui.router', 'fusewall.controllers'])
+  .config(['$locationProvider', appRoutingConfig]);
 
-  function insertPerson(person) {
-    app.database().ref("people").set(person);
-  }
-
-  function insertSquad(squad) {
-
-  }
-
-  function insertProduct(product) {
-
-  }  
-});
+angular.module('fusewall.controllers', ['ui.router']);
