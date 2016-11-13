@@ -1,14 +1,16 @@
 'use strict';
 
 function adminController($scope) {
-    $scope.whatever = "this is a test";
+    var vm = $scope;
+    
+    $scope.whatever = "BLAH BLAH BLAH";
 }
 
 function adminControllerConfig($stateProvider) {
     $stateProvider.state({
         name: 'admin',
-        templateUrl: 'admin/partials/admin.htm',
         url: '/admin',
+        templateUrl: 'scripts/admin/partials/admin.htm',
         controller: 'AdminController',
         controllerAs: 'vm'
     });
